@@ -1,7 +1,18 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 dotenv.config({ path: 'config.env' });
+
+
+// connect to database
+
+mongoose.connect(process.env.DP_URL).then((conn) => {
+    console.log(`Database connected successfully ${conn.connection.host}`);
+}).catch((err) => {
+    console.log('Database connection failed', err);
+    process.exit(1);
+});
 
 const app = express();
 
